@@ -1,13 +1,9 @@
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './components/App.tsx';
 
-const techName = 'React';
-
-createRoot(document.getElementById('root') as HTMLElement).render(
-  <>
-    <h1>Welcome to {techName}</h1>
-    <p>
-      This is JSX — it looks like HTML, but it's not quite the same. It has its
-      own rules!
-    </p>
-  </>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

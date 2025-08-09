@@ -34,7 +34,7 @@ body {
 
 img {
     display: block;
-    max-width: 100%;
+    width: 400px;
 }
 
 h1 {

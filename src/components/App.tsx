@@ -9,6 +9,8 @@ import SearchForm from './SearchForm/SearchForm.tsx';
 import type { Article } from '../types/article.ts';
 import ArticleList from './ArticleList/ArticleList.tsx';
 import fetchArticles from '../services/articleService.ts';
+import DeliveryMethod from './DeliveryMethod/DeliveryMethod.tsx';
+import Modal from './Modal/Modal.tsx';
 
 interface Values {
   x: number;
@@ -21,6 +23,9 @@ export default function App() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
   const [isError, setError] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
+  const toggleModal = () => setIsOpenModal(!isOpenModal);
 
   const handleSearch = async (topic: string) => {
     try {
@@ -57,6 +62,8 @@ export default function App() {
   };
   return (
     <>
+      {isOpenModal && <Modal onClose={toggleModal} />}
+      <button onClick={toggleModal}>Open Modal</button>
       <h1>Best selling</h1>
       <SearchForm onSearch={handleSearch} />
       {loading && <p>Loading data - please wait...</p>}
@@ -87,6 +94,7 @@ export default function App() {
         {isOpen ? 'Hide message' : 'Show message'}
       </button>
       {isOpen && <p>🎉 Surprise: you toggle me</p>}
+      <DeliveryMethod />
     </>
   );
 }

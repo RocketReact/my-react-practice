@@ -1,0 +1,11 @@
+.deliveryMethod {
+    display: flex;
+    flex-direction: column;
+}
+.label {
+    display: flex;
+}
+
+.hover:hover {
+    cursor: pointer;
+}

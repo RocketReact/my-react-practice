@@ -1,0 +1,18 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+.inputForm {
+    width: 100%;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px ;
+}
+
+.inputForm:hover, .inputForm:focus {
+    border: 1.5px solid #878282;
+}

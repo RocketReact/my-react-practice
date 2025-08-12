@@ -3,6 +3,12 @@ import Product from './Product';
 import Button from './Button/Button.tsx';
 import { useState } from 'react';
 import ClickCounter1 from './ClickCounter/ClickCounter1.tsx';
+import Form from './Form/Form.tsx';
+import OrderForm from './OrderForm/OrderForm.tsx';
+import SearchForm from './SearchForm/SearchForm.tsx';
+import type { Article } from '../types/article.ts';
+import ArticleList from './ArticleList/ArticleList.tsx';
+import fetchArticles from '../services/articleService.ts';
 
 interface Values {
   x: number;
@@ -12,7 +18,30 @@ interface Values {
 export default function App() {
   const [value, setValue] = useState<Values>({ x: 0, y: 0 });
   const [click, setClick] = useState(0);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [isError, setError] = useState<boolean>(false);
+
+  const handleSearch = async (topic: string) => {
+    try {
+      setLoading(true);
+      setError(false);
+      const response = await fetchArticles(topic);
+      setLoading(false);
+      setArticles(response);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  function handleOrder(data: string) {
+    console.log('Order received from:', data);
+  }
 
   const updateValue = (key: keyof Values) =>
     setValue({
@@ -30,6 +59,12 @@ export default function App() {
   return (
     <>
       <h1>Best selling</h1>
+      <SearchForm onSearch={handleSearch} />
+      {loading && <p>Loading data - please wait...</p>}
+      {isError && <p> Oops something went wrong ... </p>}
+      {articles.length > 0 && <ArticleList articles={articles} />}
+      <OrderForm onOrder={handleOrder} />
+      <Form />
       <Product
         name='Tacos With Lime'
         imgUrl='https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=640'

@@ -14,7 +14,6 @@ interface Values {
   x: number;
   y: number;
 }
-
 export default function App() {
   const [value, setValue] = useState<Values>({ x: 0, y: 0 });
   const [click, setClick] = useState(0);
